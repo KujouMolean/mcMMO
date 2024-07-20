@@ -878,7 +878,7 @@ public class McMMOPlayer implements Identified {
 
     public void checkGodMode() {
         if (godMode && !Permissions.mcgod(player)
-            || godMode && WorldBlacklist.isWorldBlacklisted(player.getWorld())) {
+            || godMode && WorldBlacklist.isWorldBlacklisted(player)) {
             toggleGodMode();
             player.sendMessage(LocaleLoader.getString("Commands.GodMode.Forbidden"));
         }

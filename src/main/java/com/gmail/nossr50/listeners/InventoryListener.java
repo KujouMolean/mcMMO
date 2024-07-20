@@ -42,7 +42,7 @@ public class InventoryListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onFurnaceBurnEvent(FurnaceBurnEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getBlock().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getBlock()))
             return;
 
         Block furnaceBlock = event.getBlock();
@@ -89,7 +89,7 @@ public class InventoryListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onFurnaceSmeltEvent(FurnaceSmeltEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getBlock().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getBlock()))
             return;
 
         BlockState blockState = event.getBlock().getState(); //Furnaces can only be cast from a BlockState not a Block
@@ -118,7 +118,7 @@ public class InventoryListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onFurnaceExtractEvent(FurnaceExtractEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getPlayer().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getPlayer()))
             return;
 
         BlockState furnaceBlock = event.getBlock().getState();
@@ -154,7 +154,7 @@ public class InventoryListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onInventoryClickEventNormal(InventoryClickEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getWhoClicked().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getWhoClicked()))
             return;
 
         //We should never care to do processing if the player clicks outside the window
@@ -285,7 +285,7 @@ public class InventoryListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onInventoryDragEvent(InventoryDragEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getWhoClicked().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getWhoClicked()))
             return;
 
         Inventory inventory = event.getInventory();
@@ -337,7 +337,7 @@ public class InventoryListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onBrew(BrewEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getBlock().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getBlock()))
             return;
 
         if (event instanceof FakeBrewEvent)
@@ -353,7 +353,7 @@ public class InventoryListener implements Listener {
 //    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
 //    public void onBrewStart(BrewingStartEvent event) {
 //        /* WORLD BLACKLIST CHECK */
-//        if (WorldBlacklist.isWorldBlacklisted(event.getBlock().getWorld()))
+//        if (WorldBlacklist.isWorldBlacklisted(event.getBlock()))
 //            return;
 //
 //        if (event instanceof FakeEvent)
@@ -365,7 +365,7 @@ public class InventoryListener implements Listener {
         /* WORLD BLACKLIST CHECK */
 
         if (event.getSource().getLocation() != null)
-            if (WorldBlacklist.isWorldBlacklisted(event.getSource().getLocation().getWorld()))
+            if (WorldBlacklist.isWorldBlacklisted(event.getSource().getLocation()))
                 return;
 
         final Inventory inventory = event.getDestination();
@@ -433,7 +433,7 @@ public class InventoryListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onCraftItem(CraftItemEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getWhoClicked().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getWhoClicked()))
             return;
 
         final HumanEntity whoClicked = event.getWhoClicked();

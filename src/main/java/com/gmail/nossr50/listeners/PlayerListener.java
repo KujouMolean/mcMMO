@@ -71,13 +71,13 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getPlayer().getWorld())) {
+        if (WorldBlacklist.isWorldBlacklisted(event.getPlayer())) {
             //Remove scoreboards
             if (mcMMO.p.getGeneralConfig().getScoreboardsEnabled()) {
                 ScoreboardManager.teardownPlayer(event.getPlayer());
             }
             return;
-        } else if (WorldBlacklist.isWorldBlacklisted(event.getFrom().getWorld()) && mcMMO.p.getGeneralConfig().getScoreboardsEnabled()) {
+        } else if (WorldBlacklist.isWorldBlacklisted(event.getFrom()) && mcMMO.p.getGeneralConfig().getScoreboardsEnabled()) {
             //This only fires if they are travelling to a non-blacklisted world from a blacklisted world
 
             //Setup scoreboards
@@ -132,7 +132,7 @@ public class PlayerListener implements Listener {
             return;
 
         // world blacklist check
-        if (WorldBlacklist.isWorldBlacklisted(event.getEntity().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getEntity()))
             return;
         // world guard main flag check
         if (WorldGuardUtils.isWorldGuardLoaded() && !WorldGuardManager.getInstance().hasMainFlag((Player) event.getEntity()))
@@ -162,7 +162,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerDeathMonitor(PlayerDeathEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getEntity().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getEntity()))
             return;
 
         boolean statLossEnabled = HardcoreManager.isStatLossEnabled();
@@ -246,7 +246,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerDropItem(PlayerDropItemEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getPlayer().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getPlayer()))
             return;
 
         /* WORLD GUARD MAIN FLAG CHECK */
@@ -276,7 +276,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onPlayerFishHighest(PlayerFishEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getPlayer().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getPlayer()))
             return;
 
         Player player = event.getPlayer();
@@ -360,7 +360,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerFishMonitor(PlayerFishEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getPlayer().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getPlayer()))
             return;
 
         Player player = event.getPlayer();
@@ -469,7 +469,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerPickupItem(EntityPickupItemEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getEntity().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getEntity()))
             return;
 
         if (Misc.isNPCEntityExcludingVillagers(event.getEntity())) {
@@ -618,7 +618,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onPlayerInteractLowest(PlayerInteractEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getPlayer().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getPlayer()))
             return;
 
         Player player = event.getPlayer();
@@ -745,7 +745,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerInteractMonitor(PlayerInteractEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getPlayer().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getPlayer()))
             return;
 
         Player player = event.getPlayer();

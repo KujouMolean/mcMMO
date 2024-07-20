@@ -51,7 +51,7 @@ public class PtpCommand implements TabExecutor {
         }
 
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(player.getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(player))
             return true;
 
         if (!UserManager.hasPlayerDataKey(player)) {

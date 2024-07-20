@@ -1,7 +1,13 @@
 package com.gmail.nossr50.config;
 
 import com.gmail.nossr50.mcMMO;
+import com.molean.isletopia.paper.island.Island;
+import com.molean.isletopia.paper.island.IslandManager;
+import com.molean.isletopia.paper.island.flag.MCMMO;
+import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,8 +27,23 @@ public class WorldBlacklist {
         init();
     }
 
-    public static boolean isWorldBlacklisted(World world) {
+    public static boolean isWorldBlacklisted(Location location) {
+        Island currentIsland = IslandManager.INSTANCE.getCurrentIsland(location);
+        if (currentIsland == null) {
+            return true;
+        }
+        return !currentIsland.containsFlag(MCMMO.class);
+    }
 
+    public static boolean isWorldBlacklisted(Entity entity) {
+        return isWorldBlacklisted(entity.getLocation());
+    }
+    public static boolean isWorldBlacklisted(Block block) {
+        return isWorldBlacklisted(block.getLocation());
+    }
+
+    @Deprecated(forRemoval = true)
+    public static boolean isWorldBlacklisted(World world) {
         for (String s : blacklist) {
             if (world.getName().equalsIgnoreCase(s))
                 return true;

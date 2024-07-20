@@ -125,7 +125,7 @@ public class BlockListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBlockPistonExtend(BlockPistonExtendEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getBlock().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getBlock()))
             return;
 
         if (!ExperienceConfig.getInstance().isPistonCheatingPrevented()) {
@@ -153,7 +153,7 @@ public class BlockListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBlockPistonRetract(BlockPistonRetractEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getBlock().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getBlock()))
             return;
 
         if (!ExperienceConfig.getInstance().isPistonCheatingPrevented()) {
@@ -186,7 +186,7 @@ public class BlockListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onEntityBlockFormEvent(EntityBlockFormEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getBlock().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getBlock()))
             return;
 
         BlockState blockState = event.getNewState();
@@ -208,7 +208,7 @@ public class BlockListener implements Listener {
         World world = event.getBlock().getWorld();
 
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(world))
+        if (WorldBlacklist.isWorldBlacklisted(event.getBlock()))
             return;
 
         if (ExperienceConfig.getInstance().preventStoneLavaFarming()) {
@@ -237,7 +237,7 @@ public class BlockListener implements Listener {
 //      if (!Tag.LOGS.isTagged(event.getBlockReplacedState().getType()) || !Tag.LOGS.isTagged(event.getBlockPlaced().getType()))
 
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(block.getWorld())) {
+        if (WorldBlacklist.isWorldBlacklisted(block)) {
             return;
         }
 
@@ -300,7 +300,7 @@ public class BlockListener implements Listener {
         World world = block.getWorld();
 
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(world))
+        if (WorldBlacklist.isWorldBlacklisted(block))
             return;
 
         // Minecraft is dumb, the events still throw when a plant "grows" higher than the max block height.  Even though no new block is created
@@ -323,7 +323,7 @@ public class BlockListener implements Listener {
             return;
         }
 
-        if (WorldBlacklist.isWorldBlacklisted(block.getWorld())) {
+        if (WorldBlacklist.isWorldBlacklisted(block)) {
             BlockUtils.cleanupBlockMetadata(block);
             return;
         }
@@ -442,7 +442,7 @@ public class BlockListener implements Listener {
             return;
 
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getBlock().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getBlock()))
             return;
 
         /* WORLD GUARD MAIN FLAG CHECK */
@@ -502,7 +502,7 @@ public class BlockListener implements Listener {
         BlockState blockState = event.getBlock().getState();
 
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getBlock().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getBlock()))
             return;
 
         /* WORLD GUARD MAIN FLAG CHECK */
@@ -579,7 +579,7 @@ public class BlockListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockDamageHigher(BlockDamageEvent event) {
         /* WORLD BLACKLIST CHECK */
-        if (WorldBlacklist.isWorldBlacklisted(event.getBlock().getWorld()))
+        if (WorldBlacklist.isWorldBlacklisted(event.getBlock()))
             return;
 
         /* WORLD GUARD MAIN FLAG CHECK */
