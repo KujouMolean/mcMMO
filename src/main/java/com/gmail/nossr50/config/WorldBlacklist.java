@@ -32,7 +32,7 @@ public class WorldBlacklist {
         if (currentIsland == null) {
             return true;
         }
-        return !currentIsland.containsFlag(MCMMO.class);
+        return !currentIsland.flagEnabled(MCMMO.class);
     }
 
     public static boolean isWorldBlacklisted(Entity entity) {
