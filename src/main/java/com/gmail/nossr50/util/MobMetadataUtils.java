@@ -10,15 +10,13 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.EnumMap;
-import java.util.HashSet;
-import java.util.WeakHashMap;
+import java.util.*;
 
 import static com.gmail.nossr50.util.MetadataService.*;
 
 //TODO: Use SpawnReason where appropriate instead of MobMetaFlagType
 public final class MobMetadataUtils {
-    private static final @NotNull WeakHashMap<Entity, HashSet<MobMetaFlagType>> mobRegistry; //transient data
+    private static final @NotNull Map<Entity, HashSet<MobMetaFlagType>> mobRegistry; //transient data
     private static final @NotNull EnumMap<MobMetaFlagType, NamespacedKey> mobFlagKeyMap; //used for persistent data
     private static boolean isUsingPersistentData = false;
 
@@ -28,7 +26,7 @@ public final class MobMetadataUtils {
 
     static {
         mobFlagKeyMap = new EnumMap<>(MobMetaFlagType.class);
-        mobRegistry = new WeakHashMap<>();
+        mobRegistry = Collections.synchronizedMap(new WeakHashMap<>());
         initMobFlagKeyMap();
 
         for (MobMetaFlagType metaFlagType : MobMetaFlagType.values()) {
