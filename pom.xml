@@ -452,9 +452,16 @@
         </dependency>
         <dependency>
             <groupId>com.molean</groupId>
-            <artifactId>IsletopiaIgnite</artifactId>
-            <version>1.0</version>
-            <classifier>dev</classifier>
+            <artifactId>IsletopiaPaper</artifactId>
+            <version>latest</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+            <optional>true</optional>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.apache.logging.log4j</groupId>-->
