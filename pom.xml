@@ -574,6 +574,12 @@
             <version>0.5.1</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.molean</groupId>
+            <artifactId>FoliaAdapter</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <classifier>dev</classifier>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

@@ -15,6 +15,8 @@ import com.gmail.nossr50.util.player.UserManager;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.molean.folia.adapter.FoliaAdapter;
+import com.molean.folia.adapter.scoreborad.FoliaScoreboard;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -208,8 +210,8 @@ public class ScoreboardManager {
 
         //Hacky world blacklist fix
         if (player.isOnline() && player.isValid()) {
-            if (Bukkit.getServer().getScoreboardManager() != null) {
-                player.setScoreboard(Bukkit.getServer().getScoreboardManager().getMainScoreboard());
+            if (FoliaAdapter.getFoliaScoreboardManager() != null){
+                FoliaAdapter.getFoliaScoreboardManager().setPlayerScoreboard(player, FoliaAdapter.getFoliaScoreboardManager().getMainScoreboard());
             }
         }
 
@@ -586,7 +588,7 @@ public class ScoreboardManager {
 
     public @Nullable
     static org.bukkit.scoreboard.ScoreboardManager getScoreboardManager() {
-        return mcMMO.p.getServer().getScoreboardManager();
+        return FoliaAdapter.getFoliaScoreboardManager();
     }
 
     public static void changeScoreboard(ScoreboardWrapper wrapper, int displayTime) {
@@ -626,7 +628,7 @@ public class ScoreboardManager {
         //Call our custom event
         Scoreboard scoreboard = getScoreboardManager().getNewScoreboard();
         McMMOScoreboardMakeboardEvent event = new McMMOScoreboardMakeboardEvent(scoreboard,
-                player.getScoreboard(), player, ScoreboardEventReason.CREATING_NEW_SCOREBOARD);
+                FoliaAdapter.getFoliaScoreboardManager().getPlayerScoreboard(player), player, ScoreboardEventReason.CREATING_NEW_SCOREBOARD);
         player.getServer().getPluginManager().callEvent(event);
         //Use the values from the event
         return new ScoreboardWrapper(event.getTargetPlayer(), event.getTargetBoard());

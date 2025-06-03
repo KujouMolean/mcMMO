@@ -19,6 +19,8 @@ import com.gmail.nossr50.util.player.NotificationManager;
 import com.gmail.nossr50.util.player.UserManager;
 import com.gmail.nossr50.util.scoreboards.ScoreboardManager.SidebarType;
 import com.gmail.nossr50.util.skills.SkillTools;
+import com.molean.folia.adapter.FoliaAdapter;
+import com.molean.folia.adapter.scoreborad.FoliaScoreboard;
 import com.tcoded.folialib.wrapper.task.WrappedTask;
 import java.util.List;
 import java.util.Map;
@@ -174,13 +176,13 @@ public class ScoreboardWrapper {
             return;
         }
 
-        Scoreboard previousBoard = player.getScoreboard();
+        Scoreboard previousBoard = FoliaAdapter.getFoliaScoreboardManager().getPlayerScoreboard(player);
 
         if (previousBoard == scoreboard) { // Already displaying it
             if (this.oldBoard == null) {
                 // (Shouldn't happen) Use failsafe value - we're already displaying our board, but we don't have the one we should revert to
-                if (mcMMO.p.getServer().getScoreboardManager() != null) {
-                    this.oldBoard = mcMMO.p.getServer().getScoreboardManager().getMainScoreboard();
+                if (FoliaAdapter.getFoliaScoreboardManager() != null) {
+                    this.oldBoard = FoliaAdapter.getFoliaScoreboardManager().getMainScoreboard();
                 }
             }
         } else {
@@ -200,7 +202,7 @@ public class ScoreboardWrapper {
             revertTask.cancel();
         }
 
-        player.setScoreboard(scoreboard);
+        FoliaAdapter.getFoliaScoreboardManager().setPlayerScoreboard(player, (FoliaScoreboard) scoreboard);
         revertTask = null;
     }
 
@@ -216,7 +218,7 @@ public class ScoreboardWrapper {
             revertTask.cancel();
         }
 
-        player.setScoreboard(scoreboard);
+        FoliaAdapter.getFoliaScoreboardManager().setPlayerScoreboard(player, (FoliaScoreboard) scoreboard);
         revertTask = mcMMO.p.getFoliaLib().getScheduler()
                 .runAtEntityLater(player, new ScoreboardChangeTask(), ticks);
 
@@ -252,15 +254,15 @@ public class ScoreboardWrapper {
         }
 
         if (oldBoard != null) {
-            if (player.getScoreboard() == scoreboard) {
+            if (FoliaAdapter.getFoliaScoreboardManager().getPlayerScoreboard(player) == scoreboard) {
                 /*
                   Call the revert scoreboard custom event
                  */
                 McMMOScoreboardRevertEvent event = new McMMOScoreboardRevertEvent(oldBoard,
-                        player.getScoreboard(), player, ScoreboardEventReason.REVERTING_BOARD);
+                        FoliaAdapter.getFoliaScoreboardManager().getPlayerScoreboard(player), player, ScoreboardEventReason.REVERTING_BOARD);
                 player.getServer().getPluginManager().callEvent(event);
                 //Modify the player based on the event
-                event.getTargetPlayer().setScoreboard(event.getTargetBoard());
+                FoliaAdapter.getFoliaScoreboardManager().setPlayerScoreboard(player, (FoliaScoreboard) event.getTargetBoard());
                 oldBoard = null;
             } else {
                 LogUtils.debug(mcMMO.p.getLogger(), "Not reverting targetBoard for " + playerName
@@ -285,7 +287,7 @@ public class ScoreboardWrapper {
             return false;
         }
 
-        return player.getScoreboard() == scoreboard;
+        return FoliaAdapter.getFoliaScoreboardManager().getPlayerScoreboard(player) == scoreboard;
     }
 
     public void cancelRevert() {
