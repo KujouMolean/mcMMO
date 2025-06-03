@@ -424,6 +424,19 @@
 <!--                    <version>1.21.11-R0.1-SNAPSHOT</version>-->
 <!--                </dependency>-->
         <dependency>
+            <groupId>com.molean</groupId>
+            <artifactId>Plugin</artifactId>
+            <version>d343f270-20260224-123330</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>${spigot.version}</version>

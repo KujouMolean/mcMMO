@@ -1,13 +1,18 @@
 package com.gmail.nossr50.config;
 
 import com.gmail.nossr50.mcMMO;
+import com.molean.isletopia.paper.island.Island;
+import com.molean.isletopia.paper.island.flag.external.MCMMO;
+import com.molean.isletopia.paper.island.IslandManager;
+import org.bukkit.World;
+
+import java.io.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-import org.bukkit.World;
 
 /**
  * Blacklist certain features in certain worlds
@@ -25,13 +30,18 @@ public class WorldBlacklist {
     }
 
     public static boolean isWorldBlacklisted(World world) {
-
+        Island currentIsland = IslandManager.INSTANCE.getCurrentIsland(world);
+        if (currentIsland == null) {
+            return true;
+        }
+        if (!currentIsland.flagEnabled(MCMMO.class)) {
+            return true;
+        }
         for (String s : blacklist) {
             if (world.getName().equalsIgnoreCase(s)) {
                 return true;
             }
         }
-
         return false;
     }
 
