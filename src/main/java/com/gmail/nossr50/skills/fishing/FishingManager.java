@@ -699,8 +699,21 @@ public class FishingManager extends SkillManager {
         for (EnchantmentTreasure enchantmentTreasure : possibleEnchants) {
             Enchantment possibleEnchantment = enchantmentTreasure.getEnchantment();
 
-            if (treasureDrop.getItemMeta().hasConflictingEnchant(possibleEnchantment)
-                    || Misc.getRandom().nextInt(specificChance) != 0) {
+            // Check if the enchantment conflicts with existing enchantments on the item
+            if (treasureDrop.getItemMeta().hasConflictingEnchant(possibleEnchantment)) {
+                continue;
+            }
+
+            // Check if the enchantment conflicts with enchantments already selected in this iteration
+            boolean hasConflict = false;
+            for (Enchantment existingEnchant : enchants.keySet()) {
+                if (possibleEnchantment.conflictsWith(existingEnchant)) {
+                    hasConflict = true;
+                    break;
+                }
+            }
+
+            if (hasConflict || Misc.getRandom().nextInt(specificChance) != 0) {
                 continue;
             }
 
